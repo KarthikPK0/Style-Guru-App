@@ -11,7 +11,7 @@ export class ApiService {
   wishlistCount = new BehaviorSubject(0)
   cartCount = new BehaviorSubject(0)
 
-   server_url = "http://localhost:3000" 
+   server_url = "https://style-guru-server-fhgq.onrender.com" 
 
   constructor(private http:HttpClient) { 
     if(sessionStorage.getItem("token")){
