@@ -1,0 +1,49 @@
+<app-header></app-header>
+  <!-- Section-->
+   
+    <section class="py-3">
+        
+        <div class="container px-4 px-lg-5 mt-5">
+          <div *ngIf="allProducts.length>0">
+            <h2 class="mt-5 text-primary">Your Wishlist...</h2>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div *ngFor="let product of allProducts" class="col mb-5">
+                    <div class="card h-100">
+         <!-- Product image-->
+         <img height="250px" routerLink="/{{product.id}}/view" class="card-img-top" [src]="product.image" alt="..." />
+         <!-- Product details-->
+         <div class="card-body p-4">
+             <div class="text-center">
+                 <!-- Product name-->
+                 <h5 class="fw-bolder">{{product.title.slice(0,20)}}...</h5>
+                 <!-- Product price-->
+                 {{product.price}}  
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="d-flex justify-content-between"> 
+                                <button class="btn" (click)="removeItem(product._id)"><i class="fa-solid fa-heart-circle-xmark text-danger"></i></button>   
+                               
+                                <button
+                                 class="btn"(click)="addToCart(product)"> <i class="fa-solid fa-cart-plus text-success"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+          </div>
+
+          <div *ngIf="allProducts.length==0">
+            <div style="height: 80vh;" class="d-flex justify-content-center align-items-center flex-column">
+              <img width="400px" src="https://img.freepik.com/free-vector/empty-cart-concept-illustration_114360-17069.jpg?w=740&t=st=1721066925~exp=1721067525~hmac=95b2edad84f33c06e9729d6746f70095c43bee14db3f0c4d1903bb27bc650769" alt="">
+              <h1 class="text-primary">
+                Your wishlist is empty!!
+              </h1>
+            </div>
+
+          </div>
+        </div>
+    </section>
+ 

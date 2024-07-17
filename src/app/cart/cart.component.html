@@ -1,0 +1,93 @@
+<app-header></app-header>
+<div class="py-5">
+    <div class="container mt-5">
+       <div *ngIf="allProducts.length>0">
+        <h1>Cart Summary</h1>
+        <div  class="row mt-3">
+            <div   class="col-lg-8">
+                <table  class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                   <tr  *ngFor="let product of allProducts; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{product.title.slice(0,18)}}...</td>
+                    <td><img width="50px" height="50px" [src]="product.image" alt=""></td>
+                    <td><div class="d-flex">
+                        <button (click)="decrementQuantity(product._id)" class="btn fw-bolder">-</button>
+                        <input value="{{product.quantity}}"
+                        style="width: 3rem;" type="text" class="form-control" readonly>
+                        <button (click)="incrementQuantity(product._id)" class="btn fw-bolder">+</button>
+                    </div></td>
+                    <td>{{product.totalPrice}}</td>
+                    <td><button (click)="removeItem(product._id)" class="btn">
+                        <i class="fa-solid fa-trash text-danger"></i>
+                    </button></td>
+                   </tr>
+                    </tbody>
+                </table>
+
+                <div class="float-end">
+                    <button (click)="emptyCart()" class="btn btn-danger">EMPTY CART </button>
+                    <button class="btn btn-primary ms-2">SHOP MORE </button>
+                </div>
+
+            </div>
+            <div style="height: 280px;" class="col-lg-4 shadow  ">
+                 <div   class="border rounded p-3 ">
+                    <h3>Cart Total : <span class="fw-bolder text-danger">${{cartTotalPrice}}</span></h3>
+
+                    <!-- coupons -->
+                     <h6 *ngIf="!couponStatus" (click)="getCoupon()"  cli>Click here to view <span class="btn btn-link text-primary"><i class="fa-solid fa-tag"> </i>Offers</span></h6>
+                     <div *ngIf="couponStatus" class="d-flex justify-content-center mt-3">
+                        <!-- no offers -->
+                        <ng-container *ngIf="cartTotalPrice<50  && !couponClickedStatus"> 
+                          <p class="text-primary">Sorry, no offers for this purchase!!</p>
+                          <button class="btn btn-link text-danger" (click)="backToOffers()">Back to offers</button>
+                         </ng-container>
+                        <!-- 5% -->
+                         <ng-container *ngIf="cartTotalPrice>=50 &&  cartTotalPrice<250 && !couponClickedStatus">
+                            <img (click)="discount5percent()" width="150px" height="100px" src="https://th.bing.com/th/id/OIP.HjEx1c2jSL7XD1zziJROCgAAAA?rs=1&pid=ImgDetMain" alt="">
+                         </ng-container>
+                          <!-- 20% -->
+                          <ng-container *ngIf="cartTotalPrice>=250 &&  cartTotalPrice<500 ">
+                            <img (click)="discount20percent()"  width="150px" height="100px" src="https://clipground.com/images/coupon-clipart-7.jpg" alt="">
+                         </ng-container>
+                            <!-- 50% -->
+                          
+                            <ng-container *ngIf="cartTotalPrice>=500 ">
+                                <img (click)="discount50percent()" width="150px" height="100px" src="  https://cdn.pixabay.com/photo/2017/05/26/05/38/discount-2345221_640.png" alt="">
+                             </ng-container>
+                     </div>
+                 
+                 <hr>
+                 <div class="d-grid">
+                    <button (click)="checkout()" type="submit" class="btn btn-success">Checkout</button>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+        
+    </div>
+    <div *ngIf="allProducts.length==0">
+        <div style="height: 80vh;" class="d-flex justify-content-center align-items-center flex-column">
+          <img width="400px" src="https://img.freepik.com/free-vector/empty-cart-concept-illustration_114360-17069.jpg?w=740&t=st=1721066925~exp=1721067525~hmac=95b2edad84f33c06e9729d6746f70095c43bee14db3f0c4d1903bb27bc650769" alt="">
+          <h1 class="text-primary">
+            Your cart is empty!!
+          </h1>
+        </div>
+
+      </div>
+       </div>
+
+      
+</div>

@@ -1,0 +1,49 @@
+<app-header></app-header> 
+<div class="d-flex justify-content-center align-items-center mt-5">
+ <div class="delivery w-50 mt-5 mb-5">
+    <div *ngIf="!checkOutStatus">
+        <h1>Delivery Details!!</h1>
+        <form [formGroup]="checkoutForm" class="border rounded p-3">
+            <div class="form-floating mb-3">
+                <input name="username" 
+                formControlName="username"
+                type="text" class="form-control" id="floatingInput1" placeholder="Username">
+                <label for="floatingInput">Username</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input name="address" 
+                formControlName="address" type="text" class="form-control" id="floatingInput2" placeholder="Address">
+                <label for="floatingInput">Address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text"
+                name="pincode" 
+                formControlName="pincode" class="form-control" id="floatingInput3" placeholder="Pincode">
+                <label for="floatingInput">Pincode</label>
+              </div>
+
+              <div class="d-flex justify-content-evenly">
+                 <button
+                 (click)="cancel()" class="btn btn-warning">Cancel</button>
+                 <button (click)="proceedToBuy()" class="btn btn-primary">Proceed To Buy</button>
+              </div>
+        </form>
+    </div>
+
+    <div *ngIf="checkOutStatus">
+        <h1>Payment Details</h1>
+        <hr>
+        <span class="fw-bolder mb-2 nt-2">To Address,</span>
+        <h5>{{checkoutForm.value.username}}</h5>
+        <h5>{{checkoutForm.value.address}}</h5>
+        <h5>{{checkoutForm.value.pincode}}</h5>
+
+        <h4 class="text-danger">Total Amount : $ {{totalAmount}}</h4>
+
+        <div class="payment mt-5 mb-5">
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </div>
+
+    </div>
+ </div>   
+</div>
